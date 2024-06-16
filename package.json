@@ -1,0 +1,14 @@
+{
+  "name": "dune",
+  "version": "1.0.0",
+  "description": "This is an assignment for Group B BENR2423 23/24",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
