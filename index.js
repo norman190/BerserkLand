@@ -11,36 +11,36 @@ const {
   createMonster,
   createTransaction,
   createWeapon
-} = require('./CreateFunction');
+} = require('./Functions/CreateFunction');
 
 const {
   findUserByUsername,
   findUserById
-} = require('./FindFunction');
+} = require('./Functions/FindFunction');
 
 const {
   existingUser,
   existingItem,
   existingMonster,
   existingWeapon
-} = require('./ExistingFunction');
+} = require('./Functions/ExistingFunction');
 
 const {
   generateToken,
   ADMIN,
   USER
-} = require('./TokenFunction');
+} = require('./Functions/TokenFunction');
 
 const {
   monsterslain,
   deleteUser,
   reportUser
-} = require('./OtherFunction');
+} = require('./Functions/OtherFunction');
 
 const {
   viewLeaderboard,
   viewUserByAdmin
-} = require('./ViewFunction');
+} = require('./Functions/ViewFunction');
 
 app.use(express.json());
 

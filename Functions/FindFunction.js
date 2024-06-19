@@ -3,13 +3,10 @@ async function findUserByUsername(client, username) {
         const database = client.db('TheDune');
         const collection = database.collection('users');
 
-        // Find the user by username
-        const user = await collection.findOne({ username });
-
+        const user = await collection.findOne({ username: username });
         return user;
     } catch (error) {
-        console.error('Error finding user by username:', error);
-        throw error;
+        console.error("Error finding user by username:", error);
     }
 }
 
@@ -18,12 +15,10 @@ async function findUserById(client, user_id) {
         const database = client.db('TheDune');
         const collection = database.collection('users');
 
-        // Find the user by user_id
-        const user = await collection.findOne({ user_id });
+        const user = await collection.findOne({ user_id: user_id });
         return user;
     } catch (error) {
-        console.error("Error finding user by user_id:", error);
-        throw error;
+        console.error("Error finding user by ID:", error);
     }
 }
 
