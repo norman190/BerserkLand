@@ -1,13 +1,13 @@
-async function createUser(client, user_id, username, password, email) {
+const createUser = async (client, user_id, username, password, email) => {
     try {
-        const database = client.db('TheDune');
+        const database = client.db('Cluster');
         const collection = database.collection('users');
 
         const user = {
-            user_id: user_id,
-            username: username,
-            password: password,
-            email: email,
+            user_id,
+            username,
+            password,
+            email,
             registration_date: new Date().toISOString(),
             profile: {
                 level: 1,
@@ -25,90 +25,112 @@ async function createUser(client, user_id, username, password, email) {
         console.log("User created successfully");
     } catch (error) {
         console.error("Error creating user:", error);
+        throw error;
     }
-}
+};
 
-async function createItem(client, item_id, name, description, type, attributes, rarity) {
+const createItem = async (client, item_id, name, description, type, attributes, rarity) => {
     try {
-        const database = client.db('TheDune');
+        const database = client.db('Cluster');
         const collection = database.collection('items');
 
         const item = {
-            item_id: item_id,
-            name: name,
-            description: description,
-            type: type,
-            attributes: attributes,
-            rarity: rarity
+            item_id,
+            name,
+            description,
+            type,
+            attributes,
+            rarity
         };
 
         await collection.insertOne(item);
         console.log("Item created successfully");
     } catch (error) {
         console.error("Error creating item:", error);
+        throw error;
     }
-}
+};
 
-async function createMonster(client, monster_id, name, attributes, location) {
+const createMonster = async (client, monster_id, name, attributes, location, experience) => {
     try {
-        const database = client.db('TheDune');
-        const collection = database.collection('monster');
+        const database = client.db('Cluster');
+        const collection = database.collection('monsters');
 
         const monster = {
-            monster_id: monster_id,
-            name: name,
-            attributes: attributes,
-            location: location
+            monster_id,
+            name,
+            attributes,
+            location,
+            experience  // Add experience here for each monster
         };
 
         await collection.insertOne(monster);
         console.log("Monster created successfully");
     } catch (error) {
         console.error("Error creating monster:", error);
+        throw error;
     }
-}
+};
 
-async function createTransaction(client, transaction_id, user_id, item_id, transaction_type, amount, date) {
+const createTransaction = async (client, transaction_id, user_id, item_id, transaction_type, amount, date) => {
     try {
-        const database = client.db('TheDune');
-        const collection = database.collection('transaction');
+        const database = client.db('Cluster');
+        const usersCollection = database.collection('users');
+        const itemsCollection = database.collection('items');
+        const transactionsCollection = database.collection('transactions');
 
+        // Check if the user exists
+        const userExists = await usersCollection.findOne({ user_id });
+        if (!userExists) {
+            throw new Error(`User with ID ${user_id} does not exist.`);
+        }
+
+        // Check if the item exists
+        const itemExists = await itemsCollection.findOne({ item_id });
+        if (!itemExists) {
+            throw new Error(`Item with ID ${item_id} does not exist.`);
+        }
+
+        // Create the transaction if both user and item exist
         const transaction = {
-            transaction_id: transaction_id,
-            user_id: user_id,
-            item_id: item_id,
-            transaction_type: transaction_type,
-            amount: amount,
-            date: date
+            transaction_id,
+            user_id,
+            item_id,
+            transaction_type,
+            amount,
+            date
         };
 
-        await collection.insertOne(transaction);
+        await transactionsCollection.insertOne(transaction);
         console.log("Transaction created successfully");
     } catch (error) {
-        console.error("Error creating transaction:", error);
+        console.error("Error creating transaction:", error.message);
+        throw error;
     }
-}
+};
 
-async function createWeapon(client, weapon_id, name, description, damage, type, attributes) {
+
+const createWeapon = async (client, weapon_id, name, description, damage, type, attributes) => {
     try {
-        const database = client.db('TheDune');
+        const database = client.db('Cluster');
         const collection = database.collection('weapons');
 
         const weapon = {
-            weapon_id: weapon_id,
-            name: name,
-            description: description,
-            damage: damage,
-            type: type,
-            attributes: attributes
+            weapon_id,
+            name,
+            description,
+            damage,
+            type,
+            attributes
         };
 
         await collection.insertOne(weapon);
         console.log("Weapon created successfully");
     } catch (error) {
         console.error("Error creating weapon:", error);
+        throw error;
     }
-}
+};
 
 module.exports = {
     createUser,

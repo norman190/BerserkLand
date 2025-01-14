@@ -1,26 +1,28 @@
-async function findUserByUsername(client, username) {
+const findUserByUsername = async (client, username) => {
     try {
-        const database = client.db('TheDune');
+        const database = client.db('Cluster');
         const collection = database.collection('users');
 
-        const user = await collection.findOne({ username: username });
-        return user;
+        const user = await collection.findOne({ username });
+        return user; // Returns the user document if found, otherwise null
     } catch (error) {
         console.error("Error finding user by username:", error);
+        throw error;
     }
-}
+};
 
-async function findUserById(client, user_id) {
+const findUserById = async (client, user_id) => {
     try {
-        const database = client.db('TheDune');
+        const database = client.db('Cluster');
         const collection = database.collection('users');
 
-        const user = await collection.findOne({ user_id: user_id });
-        return user;
+        const user = await collection.findOne({ user_id });
+        return user; // Returns the user document if found, otherwise null
     } catch (error) {
         console.error("Error finding user by ID:", error);
+        throw error;
     }
-}
+};
 
 module.exports = {
     findUserByUsername,
