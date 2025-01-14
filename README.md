@@ -1,4 +1,4 @@
-# Dune
+# BerserkLand
 This project involves the development of a RESTful API for an online game backend system, utilizing Node.js, the Express framework, and MongoDB:
 1.	API Implementation: Develop a RESTful API with well-defined endpoints to facilitate core game actions, including creating game sessions, joining sessions, making moves, and retrieving game statuses.
 2.	Security and Stability: Implement authentication and authorization mechanisms to protect player data and ensure secure access. Integrate error handling, data validation, and rate limiting to maintain the stability and performance of the API.
